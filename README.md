@@ -1,4 +1,6 @@
-# Parking-Lot-Availability-CNN-Classification
+# Parking Lot Availability (Binary Image Classification MobileNetv2)
+
+
 
 ## SETUP
 setup environment using miniconda
