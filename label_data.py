@@ -2,7 +2,6 @@ from pathlib import Path
 import os
 import csv
 
-import matplotlib.pyplot as plt
 import cv2
 
 DATA_DIR = Path(Path().absolute(),'data')

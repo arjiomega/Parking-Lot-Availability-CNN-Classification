@@ -5,9 +5,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 
-
-
-DATA_DIR = Path(Path().absolute(),'data')
+from config.config import DATA_DIR
 
 cap = cv2.VideoCapture(str(Path(DATA_DIR,'parking_vid.mp4')))
 
@@ -47,13 +45,9 @@ def checkParkingSpace(imgProcessed):
 
         # empty
         if predictions[i] == 0:
-            color = (0,255,0) # green
-            #text_color = (0,0,0)
-            #text = "free"
+            color = (0,255,0)
         else:
             color = (0,0,255)
-            #text_color = (255,255,255)
-            #text = "used"
             slots_avail -= 1
 
         cv2.rectangle(img,(x,y),(x+width,y+height),color,2)
@@ -75,19 +69,17 @@ out = cv2.VideoWriter('output.avi', fourcc, 20.0, (1920,1080))
 while True:
     # first one gives current position, second gives total number of frames present in video
     if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
-        # reset frame if we reach total number of frames
-        #cap.set(cv2.CAP_PROP_POS_FRAMES,0)
         print("================================DONE=================================")
     print(cap.get(cv2.CAP_PROP_POS_FRAMES), 'out of ',cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
     success, img = cap.read()
 
     checkParkingSpace(img)
 
-
     out.write(img)
+
     cv2.imshow("image",img)
 
-    #cv2.imshow("ImageBlur",imgDilate)
     c = cv2.waitKey(1)
 
     if c & 0xFF == ord('q'):
